@@ -1,8 +1,8 @@
 # User Registration
 You can register the users via this API.
 
-Uri: `/api/v1/user/register`
-Method: `POST`
+- Uri: `/api/v1/user/register`
+- Method: `POST`
 
 ### Parameters
 - `username`: Username of the user
