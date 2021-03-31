@@ -27,6 +27,12 @@ For running tests:
 $ php artisan test
 ```
 
+For format the code using php-cs-fixer:
+
+```bash
+$ composer format
+```
+
 ## Frontend
 The frontend project for this backend will be created soon...
 
