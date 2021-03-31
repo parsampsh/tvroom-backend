@@ -92,5 +92,7 @@ class UserTest extends TestCase
             'password' => '123',
         ]);
         $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertAuthenticatedAs($user);
     }
 }
