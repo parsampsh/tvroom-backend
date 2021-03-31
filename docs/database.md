@@ -3,6 +3,10 @@ You can see the Database Models (Tables) structure and fields below.
 
 (Note: Soft deletes is enabled for all tables)
 
+## Table of contents
+- [User](#user)
+- [UserPermission](#userpermission)
+
 ## User
 This table keeps the users and admins.
 
