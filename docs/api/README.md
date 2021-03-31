@@ -22,3 +22,4 @@ But if there are some errors, `error` is in response.
 # Table of Contents
 - [User related APIs](users)
     - [Registration](users/register.md)
+    - [Login](users/login.md)
