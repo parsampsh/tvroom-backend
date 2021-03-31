@@ -27,3 +27,9 @@ For running tests:
 $ php artisan test
 ```
 
+## Frontend
+The frontend project for this backend will be created soon...
+
+## Documentation
+To read documentation of this project and also APIs, see [docs folder](docs).
+
