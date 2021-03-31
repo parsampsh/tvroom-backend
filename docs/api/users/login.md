@@ -7,6 +7,7 @@ This API logins a user with `email` and `password`.
 ### Parameters
 - `email`: The user email
 - `password`: The user password
+- `remember` (optional): Remeber the login or not
 
 ### Response
 Returns `401 Unauthorized` when the credentials are invalid.
