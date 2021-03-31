@@ -17,9 +17,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'is_manager',
     ];
 
     /**
@@ -40,4 +41,28 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Returns list of the permissions for the user
+     */
+    public function permissions()
+    {
+        return $this->hasMany(UserPermission::class);
+    }
+
+    /**
+     * Checks a user has a permission
+     *
+     * @param string $permission
+     * @return bool
+     */
+    public function has_permission(string $permission): bool
+    {
+        if ($this->is_manager) {
+            // The manager user has all the permissions
+            return true;
+        }
+
+        return $this->permissions()->where('name', $permission)->count() > 0;
+    }
 }
