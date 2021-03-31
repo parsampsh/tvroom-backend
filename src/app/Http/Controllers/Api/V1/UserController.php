@@ -61,4 +61,34 @@ class UserController extends Controller
             'message' => 'User registered successfully',
         ], Response::HTTP_CREATED);
     }
+
+    /**
+     * Logins the user by credentials
+     *
+     * @param Request $request
+     */
+    public function login(Request $request)
+    {
+        // validate the request
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        // check the remember flag
+        $remember = (bool) $request->post('remember');
+
+        // attempt credentials
+        if (auth()->attempt($request->all(['email', 'password']), $remember)) {
+            // login successful
+            return response()->json([
+                'message' => 'Login successful',
+            ], Response::HTTP_OK);
+        }
+
+        // invalid credentials
+        return response()->json([
+            'error' => 'Invalid credentials',
+        ], Response::HTTP_UNAUTHORIZED);
+    }
 }

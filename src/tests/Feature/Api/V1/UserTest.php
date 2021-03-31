@@ -5,6 +5,7 @@ namespace Tests\Feature\Api\V1;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -59,5 +60,37 @@ class UserTest extends TestCase
 
         // check user is logged in after registration
         $this->assertAuthenticated();
+    }
+
+    /**
+     * Checks user can login
+     */
+    public function test_user_can_login()
+    {
+        $user = User::factory()->create([
+            'email' => 'parsampsh@gmail.com',
+            'password' => Hash::make('123'),
+        ]);
+
+        $response = $this->post(route('api.v1.user.login'), []);
+        $response->assertStatus(Response::HTTP_FOUND);
+
+        $response = $this->post(route('api.v1.user.login'), [
+            'email' => 'foo@bar',
+            'password' => 'hello',
+        ]);
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+
+        $response = $this->post(route('api.v1.user.login'), [
+            'email' => 'parsampsh@gmail.com',
+            'password' => 'hello',
+        ]);
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+
+        $response = $this->post(route('api.v1.user.login'), [
+            'email' => 'parsampsh@gmail.com',
+            'password' => '123',
+        ]);
+        $response->assertStatus(Response::HTTP_OK);
     }
 }
