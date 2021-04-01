@@ -110,4 +110,20 @@ class AuthTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
         $this->assertEquals($user->username, $response->json('username'));
     }
+
+    /**
+     * User can logout
+     */
+    public function test_user_can_logout()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->get(route('api.v1.auth.logout'));
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+
+        auth()->login($user);
+        $response = $this->get(route('api.v1.auth.logout'));
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertFalse(auth()->check());
+    }
 }

@@ -14,6 +14,9 @@ Route::prefix('/v1')->group(function () {
 
         Route::get('/info', [AuthController::class, 'info'])
             ->name('api.v1.auth.info');
+
+        Route::get('/logout', [AuthController::class, 'logout'])
+            ->name('api.v1.auth.logout');
     });
 
     Route::get('/status', function () {

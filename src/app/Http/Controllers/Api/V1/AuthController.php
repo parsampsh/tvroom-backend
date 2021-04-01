@@ -108,4 +108,25 @@ class AuthController extends Controller
 
         return auth()->user();
     }
+
+    /**
+     * Logouts the user
+     *
+     * @param Request $request
+     */
+    public function logout(Request $request)
+    {
+        if (! auth()->check()) {
+            // user is not logged in
+            return response()->json([
+                'error' => 'User is not authenticated',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        auth()->logout();
+
+        return response()->json([
+            'message' => 'User logged out successfully',
+        ], Response::HTTP_OK);
+    }
 }
