@@ -23,4 +23,5 @@ But if there are some errors, `error` is in response.
 - [Auth](auth)
     - [Registration](auth/register.md)
     - [Login](auth/login.md)
+    - [Info](auth/info.md)
 - [Status check](status.md)

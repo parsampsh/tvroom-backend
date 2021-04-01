@@ -91,4 +91,21 @@ class AuthController extends Controller
             'error' => 'Invalid credentials',
         ], Response::HTTP_UNAUTHORIZED);
     }
+
+    /**
+     * Returns info of the current authenticated user
+     *
+     * @param Request $request
+     */
+    public function info(Request $request)
+    {
+        if (! auth()->check()) {
+            // user is not logged in
+            return response()->json([
+                'error' => 'User is not authenticated',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        return auth()->user();
+    }
 }

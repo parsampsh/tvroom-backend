@@ -95,4 +95,19 @@ class AuthTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
     }
+
+    /**
+     * Info of current logged in user is accessible
+     */
+    public function test_logged_in_user_info_is_accessible()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->get(route('api.v1.auth.info'));
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+
+        $response = $this->actingAs($user)->get(route('api.v1.auth.info'));
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertEquals($user->username, $response->json('username'));
+    }
 }
