@@ -2,15 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\AuthController;
 
 Route::prefix('/v1')->group(function () {
-    Route::prefix('/user')->group(function () {
-        Route::post('/register', [UserController::class, 'register'])
-            ->name('api.v1.user.register');
+    Route::prefix('/auth')->group(function () {
+        Route::post('/register', [AuthController::class, 'register'])
+            ->name('api.v1.auth.register');
 
-        Route::post('/login', [UserController::class, 'login'])
-            ->name('api.v1.user.login');
+        Route::post('/login', [AuthController::class, 'login'])
+            ->name('api.v1.auth.login');
     });
 
     Route::get('/status', function () {

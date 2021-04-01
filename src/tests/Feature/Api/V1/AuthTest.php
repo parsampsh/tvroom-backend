@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
-class UserTest extends TestCase
+class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -18,34 +18,34 @@ class UserTest extends TestCase
      */
     public function test_user_can_be_registered()
     {
-        $response = $this->post(route('api.v1.user.register'), []);
+        $response = $this->post(route('api.v1.auth.register'), []);
         $response->assertStatus(Response::HTTP_FOUND);
 
         $user = User::factory()->create(['username' => 'gerdoo', 'email' => 'gerdoo@cats.cats']);
 
         // username should be unique
-        $response = $this->post(route('api.v1.user.register'), [
+        $response = $this->post(route('api.v1.auth.register'), [
             'username' => 'gerdoo',
             'email' => 'test@example.com',
             'password' => '123',
         ]);
         $response->assertStatus(Response::HTTP_CONFLICT);
 
-        $response = $this->post(route('api.v1.user.register'), [
+        $response = $this->post(route('api.v1.auth.register'), [
             'username' => 'gerdoo',
             'email' => 'test@example.com',
             'password' => '123',
         ]);
         $response->assertStatus(Response::HTTP_CONFLICT);
 
-        $response = $this->post(route('api.v1.user.register'), [
+        $response = $this->post(route('api.v1.auth.register'), [
             'username' => 'parsa',
             'email' => 'gerdoo@cats.cats',
             'password' => '123',
         ]);
         $response->assertStatus(Response::HTTP_CONFLICT);
 
-        $response = $this->post(route('api.v1.user.register'), [
+        $response = $this->post(route('api.v1.auth.register'), [
             'username' => 'parsa',
             'email' => 'parsampsh@gmail.com',
             'password' => '123',
@@ -72,22 +72,22 @@ class UserTest extends TestCase
             'password' => Hash::make('123'),
         ]);
 
-        $response = $this->post(route('api.v1.user.login'), []);
+        $response = $this->post(route('api.v1.auth.login'), []);
         $response->assertStatus(Response::HTTP_FOUND);
 
-        $response = $this->post(route('api.v1.user.login'), [
+        $response = $this->post(route('api.v1.auth.login'), [
             'email' => 'foo@bar',
             'password' => 'hello',
         ]);
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
 
-        $response = $this->post(route('api.v1.user.login'), [
+        $response = $this->post(route('api.v1.auth.login'), [
             'email' => 'parsampsh@gmail.com',
             'password' => 'hello',
         ]);
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
 
-        $response = $this->post(route('api.v1.user.login'), [
+        $response = $this->post(route('api.v1.auth.login'), [
             'email' => 'parsampsh@gmail.com',
             'password' => '123',
         ]);

@@ -8,7 +8,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserController extends Controller
+class AuthController extends Controller
 {
     /**
      * Registers a user

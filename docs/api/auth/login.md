@@ -1,7 +1,7 @@
 # User Login
 This API logins a user with `email` and `password`.
 
-- Uri: `/api/v1/user/login`
+- Uri: `/api/v1/auth/login`
 - Method: `POST`
 
 ### Parameters
