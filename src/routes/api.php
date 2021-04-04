@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\UserController;
 
 Route::prefix('/v1')->group(function () {
     Route::prefix('/auth')->group(function () {
@@ -18,6 +19,20 @@ Route::prefix('/v1')->group(function () {
         Route::get('/logout', [AuthController::class, 'logout'])
             ->name('api.v1.auth.logout');
     });
+
+    /*Route::prefix('/users')->group(function () {
+        Route::post('/create', [UserController::class, 'create'])
+            ->name('api.v1.users.create');
+
+        Route::post('/', [UserController::class, 'list'])
+            ->name('api.v1.users.list');
+
+        Route::post('/update/{user}', [UserController::class, 'update'])
+            ->name('api.v1.users.update');
+
+        Route::post('/delete/{user}', [UserController::class, 'delete'])
+            ->name('api.v1.users.delete');
+    });*/
 
     Route::get('/status', function () {
         return response()->json([
