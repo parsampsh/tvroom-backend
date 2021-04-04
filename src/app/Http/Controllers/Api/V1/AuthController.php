@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -25,9 +26,14 @@ class AuthController extends Controller
         ]);
 
         // check username is unique
-        if (resolve(UserRepository::class)
-            ->find_user_by_username($request->get('username')) !== null
-        ) {
+        $current_user = resolve(UserRepository::class)
+            ->find_user_by_username($request->get('username'));
+        if ($current_user !== null) {
+            // log
+            Log::notice('Someone tried to register a username that already exists', [
+                'user_id' => $current_user->id, 'username' => $request->get('username')
+            ]);
+
             // username is reserved
             return response()->json([
                 'error' => 'Username is already registered',
@@ -35,9 +41,14 @@ class AuthController extends Controller
         }
 
         // check email is unique
-        if (resolve(UserRepository::class)
-                ->find_user_by_email($request->get('email')) !== null
-        ) {
+        $current_user = resolve(UserRepository::class)
+            ->find_user_by_email($request->get('email'));
+        if ($current_user !== null) {
+            // log
+            Log::notice('Someone tried to register a email that already exists', [
+                'user_id' => $current_user->id, 'email' => $request->get('email')
+            ]);
+
             // email is reserved
             return response()->json([
                 'error' => 'Email is already registered',
@@ -53,6 +64,9 @@ class AuthController extends Controller
                 'error' => 'Failed to register the user',
             ], Response::HTTP_INTERNAL_SERVER_ERROR); // TODO : set a better status code
         }
+
+        // log
+        Log::notice('A New user was registered', ['user_id' => $created_user->id]);
 
         // login the created user
         auth()->login($created_user);
@@ -80,11 +94,17 @@ class AuthController extends Controller
 
         // attempt credentials
         if (auth()->attempt($request->all(['email', 'password']), $remember)) {
+            // log
+            Log::info('User logged in', ['user_id' => auth()->user()->id]);
+
             // login successful
             return response()->json([
                 'message' => 'Login successful',
             ], Response::HTTP_OK);
         }
+
+        // log
+        Log::notice('Invalid login', ['email' => $request->post('email')]);
 
         // invalid credentials
         return response()->json([
@@ -100,11 +120,19 @@ class AuthController extends Controller
     public function info(Request $request)
     {
         if (! auth()->check()) {
+            // log
+            Log::info('A non-authenticated user requested to get user info');
+
             // user is not logged in
             return response()->json([
                 'error' => 'User is not authenticated',
             ], Response::HTTP_UNAUTHORIZED);
         }
+
+        // log
+        Log::info('Showing information of the logged in user', [
+            'user_id' => auth()->user()->email,
+        ]);
 
         return auth()->user();
     }
@@ -117,11 +145,17 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         if (! auth()->check()) {
+            // log
+            Log::info('A non-authenticated user requested to logout');
+
             // user is not logged in
             return response()->json([
                 'error' => 'User is not authenticated',
             ], Response::HTTP_UNAUTHORIZED);
         }
+
+        // log
+        Log::info('User logged out', ['user_id' => auth()->user()->id]);
 
         auth()->logout();
 
