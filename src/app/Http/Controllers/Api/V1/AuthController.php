@@ -103,11 +103,12 @@ class AuthController extends Controller
             ], Response::HTTP_OK);
         }
 
-        // log
         $exists_user = User::where('email', $request->post('email'))->first();
         if ($exists_user !== null) {
+            // log
             Log::warning('Invalid password entered for user', ['user_id' => $exists_user->id]);
         } else {
+            // log
             Log::notice('Invalid login', ['email' => $request->post('email')]);
         }
 
