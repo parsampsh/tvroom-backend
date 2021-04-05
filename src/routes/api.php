@@ -20,19 +20,24 @@ Route::prefix('/v1')->group(function () {
             ->name('api.v1.auth.logout');
     });
 
-    /*Route::prefix('/users')->group(function () {
-        Route::post('/create', [UserController::class, 'create'])
-            ->name('api.v1.users.create');
+    Route::prefix('/users')->group(function () {
+        Route::middleware('auth')->group(function () {
+            Route::post('/create', [UserController::class, 'create'])
+                ->name('api.v1.users.create');
 
-        Route::post('/', [UserController::class, 'list'])
-            ->name('api.v1.users.list');
+            Route::get('/', [UserController::class, 'list'])
+                ->name('api.v1.users.list');
 
-        Route::post('/update/{user}', [UserController::class, 'update'])
-            ->name('api.v1.users.update');
+            Route::put('/update/{user}', [UserController::class, 'update'])
+                ->name('api.v1.users.update');
 
-        Route::post('/delete/{user}', [UserController::class, 'delete'])
-            ->name('api.v1.users.delete');
-    });*/
+            Route::delete('/delete/{user}', [UserController::class, 'delete'])
+                ->name('api.v1.users.delete');
+        });
+
+        Route::get('/{user}', [UserController::class, 'once'])
+            ->name('api.v1.users.once');
+    });
 
     Route::get('/status', function () {
         return response()->json([
