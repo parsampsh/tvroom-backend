@@ -32,6 +32,7 @@ The movies/serials.
 
 Columns:
 - `title`: Title of the movie
+- `en_title`: English Title of the movie
 - `user_id`: Which user added This
 - `description`: The description of the movie
 - `img`: Image filename

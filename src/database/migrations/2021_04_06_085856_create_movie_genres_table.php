@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCrewsTable extends Migration
+class CreateMovieGenresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateCrewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('crews', function (Blueprint $table) {
+        Schema::create('movie_genres', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('en_title')->nullable();
-            $table->string('img')->nullable();
-            $table->text('description')->nullable();
-            $table->foreignId('user_id')
+            $table->foreignId('movie_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->foreignId('genre_id')
                 ->constrained()
                 ->onDelete('cascade');
             $table->timestamps();
@@ -34,6 +33,6 @@ class CreateCrewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crews');
+        Schema::dropIfExists('movie_genres');
     }
 }

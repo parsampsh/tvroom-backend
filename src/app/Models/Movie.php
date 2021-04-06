@@ -25,4 +25,14 @@ class Movie extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Genres of this movie
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
 }

@@ -16,11 +16,12 @@ class CreateMoviesTable extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('en_title')->nullable();
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade');
-            $table->text('description');
-            $table->string('img');
+            $table->text('description')->nullable();
+            $table->string('img')->nullable();
             $table->integer('type')
                 ->comment('Type of the movie: 0: movie, 1: serial')
                 ->default(0);
