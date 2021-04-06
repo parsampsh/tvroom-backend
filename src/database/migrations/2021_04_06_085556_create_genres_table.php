@@ -21,6 +21,7 @@ class CreateGenresTable extends Migration
                 ->constrained()
                 ->onDelete('cascade');
             $table->string('img')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

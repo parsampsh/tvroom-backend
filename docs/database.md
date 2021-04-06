@@ -32,10 +32,10 @@ The movies/serials.
 
 Columns:
 - `title`: Title of the movie
-- `en_title`: English Title of the movie
+- `en_title`: English Title of the movie (nullable)
 - `user_id`: Which user added This
-- `description`: The description of the movie
-- `img`: Image filename
+- `description`: The description of the movie (nullable)
+- `img`: Image filename (nullable)
 - `type`: `0` is movie and `1` is serial
 - `is_free`: Can be watched without subscription
 
@@ -44,9 +44,9 @@ The crews are directors, artists... of the movies.
 
 Columns:
 - `title`: Name of the crew
-- `en_title`: English Name of the crew
-- `img`: Image filename
-- `description`: A description for crew
+- `en_title`: English Name of the crew (nullable)
+- `img`: Image filename (nullable)
+- `description`: A description for crew (nullable)
 - `user_id`: Which user added this
 
 ## MovieCrew
@@ -57,3 +57,13 @@ Columns:
 - `movie_id`: Id of the movie
 - `crew_id`: Id of the crew
 - `role`: Role of the crew in the movie (for example `director`)
+
+## Genre
+The genres table.
+
+Columns:
+- `title`: Title of the genre
+- `en_title`: English Title of the genre (nullable)
+- `img`: Image filename (nullable)
+- `description`: Description (nullable)
+- `user_id`: Which user added this genre
