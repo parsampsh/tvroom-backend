@@ -7,6 +7,11 @@ You can see the Database Models (Tables) structure and fields below.
 - [User](#user)
 - [UserPermission](#userpermission)
 - [Movie](#movie)
+- [Crew](#crew)
+- [MovieCrew](#moviecrew)
+- [Genre](#genre)
+- [MovieGenre](#moviegenre)
+- [MovieImage](#movieimage)
 
 ## User
 This table keeps the users and admins.
@@ -33,7 +38,7 @@ The movies/serials.
 Columns:
 - `title`: Title of the movie
 - `en_title`: English Title of the movie (nullable)
-- `user_id`: Which user added This
+- `user_id`: Which [user](#user) added This
 - `description`: The description of the movie (nullable)
 - `img`: Image filename (nullable)
 - `type`: `0` is movie and `1` is serial
@@ -41,22 +46,22 @@ Columns:
 - `is_show`: Is enable for showing
 
 ## Crew
-The crews are directors, artists... of the movies.
+The crews are directors, artists... of the [movies](#movie).
 
 Columns:
 - `title`: Name of the crew
 - `en_title`: English Name of the crew (nullable)
 - `img`: Image filename (nullable)
 - `description`: A description for crew (nullable)
-- `user_id`: Which user added this
+- `user_id`: Which [user](#user) added this
 
 ## MovieCrew
-The relation between movies and crews is a N2N relation.
+The relation between [movies](#movie) and [crews](#crew) is a N2N relation.
 This table makes the N2N relation for them.
 
 Columns:
-- `movie_id`: Id of the movie
-- `crew_id`: Id of the crew
+- `movie_id`: Id of the [movie](#movie)
+- `crew_id`: Id of the [crew](#crew)
 - `role`: Role of the crew in the movie (for example `director`)
 
 ## Genre
@@ -67,12 +72,20 @@ Columns:
 - `en_title`: English Title of the genre (nullable)
 - `img`: Image filename (nullable)
 - `description`: Description (nullable)
-- `user_id`: Which user added this genre
+- `user_id`: Which [user](#user) added this genre
+
+## MovieGenre
+The [movies](#movie) and the [genres](#genre) have N2N relation.
+This table makes the N2N relation for them.
+
+Columns:
+- `movie_id`: Id of the [movie](#movie)
+- `genre_id`: Id of the [genre](#genre)
 
 ## MovieImage
-Each movie has some videos and images as preview.
+Each [movie](#movie) has some videos and images as preview.
 
 - `title`: A title for image/video
 - `src`: Filename
-- `movie_id`: Id of the movie
+- `movie_id`: Id of the [movie](#movie)
 - `is_video`: Is video or not
