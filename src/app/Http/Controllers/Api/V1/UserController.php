@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        //
+        // TODO : write me
     }
 
     /**
@@ -25,7 +26,18 @@ class UserController extends Controller
      */
     public function list(Request $request)
     {
-        //
+        // check user permission for getting list of users
+        if (! auth()->user()->has_permission('get-users-list')) {
+            abort(403);
+        }
+
+        $users = User::query()
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('app.extra.users.list_per_page'));
+
+        // TODO : add additional options (filters) for the users
+
+        return response()->json($users, Response::HTTP_OK);
     }
 
     /**
