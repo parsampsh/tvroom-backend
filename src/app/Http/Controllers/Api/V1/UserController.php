@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -28,6 +29,11 @@ class UserController extends Controller
     {
         // check user permission for getting list of users
         if (! auth()->user()->has_permission('get-users-list')) {
+            // log
+            Log::notice('User that haven\'t permission tried to get list of users', [
+                'user_id' => auth()->user()->id,
+            ]);
+
             abort(403);
         }
 
@@ -36,6 +42,11 @@ class UserController extends Controller
             ->paginate(config('app.extra.users.list_per_page'));
 
         // TODO : add additional options (filters) for the users
+
+        // log
+        Log::info('User received list of the users', [
+            'user_id' => auth()->user()->id,
+        ]);
 
         return response()->json($users, Response::HTTP_OK);
     }
