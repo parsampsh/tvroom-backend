@@ -28,6 +28,8 @@ class CreateMoviesTable extends Migration
             $table->boolean('is_free')
                 ->comment('Can be watched without subscription')
                 ->default(0);
+            $table->boolean('is_show')
+                ->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

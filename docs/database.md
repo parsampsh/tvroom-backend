@@ -38,6 +38,7 @@ Columns:
 - `img`: Image filename (nullable)
 - `type`: `0` is movie and `1` is serial
 - `is_free`: Can be watched without subscription
+- `is_show`: Is enable for showing
 
 ## Crew
 The crews are directors, artists... of the movies.
@@ -67,3 +68,11 @@ Columns:
 - `img`: Image filename (nullable)
 - `description`: Description (nullable)
 - `user_id`: Which user added this genre
+
+## MovieImage
+Each movie has some videos and images as preview.
+
+- `title`: A title for image/video
+- `src`: Filename
+- `movie_id`: Id of the movie
+- `is_video`: Is video or not
