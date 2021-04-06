@@ -66,4 +66,24 @@ class User extends Authenticatable
 
         return $this->permissions()->where('name', $permission)->count() > 0;
     }
+
+    /**
+     * Movies that added by this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function movies()
+    {
+        return $this->hasMany(Movie::class);
+    }
+
+    /**
+     * Crews that added by this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function crews()
+    {
+        return $this->hasMany(Crew::class);
+    }
 }
