@@ -1,6 +1,5 @@
 # TODO
 
-- Add model `Comment`
 - Add model `Subscription`
 - Add model `Season`
 - Add model `Episode`

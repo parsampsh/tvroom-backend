@@ -12,6 +12,7 @@ You can see the Database Models (Tables) structure and fields below.
 - [Genre](#genre)
 - [MovieGenre](#moviegenre)
 - [MovieImage](#movieimage)
+- [Comment](#comment)
 
 ## User
 This table keeps the users and admins.
@@ -89,3 +90,13 @@ Each [movie](#movie) has some videos and images as preview.
 - `src`: Filename
 - `movie_id`: Id of the [movie](#movie)
 - `is_video`: Is video or not
+
+## Comment
+The comments are here.
+
+Columns:
+- `user_id`: Which user commented this
+- `body`: Content of the comment (max 1000)
+- `is_show`: Is enable for showing
+- `is_spoil`: Does spoil the movie
+- `comment_id`: Id of the comment that this comment is reply to (nullable)
