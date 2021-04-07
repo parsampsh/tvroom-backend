@@ -13,6 +13,7 @@ You can see the Database Models (Tables) structure and fields below.
 - [MovieGenre](#moviegenre)
 - [MovieImage](#movieimage)
 - [Comment](#comment)
+- [Subscription](#subscription)
 
 ## User
 This table keeps the users and admins.
@@ -100,3 +101,14 @@ Columns:
 - `is_show`: Is enable for showing
 - `is_spoil`: Does spoil the movie
 - `comment_id`: Id of the comment that this comment is reply to (nullable)
+
+## Subscription
+The subscription plans are stored dynamically here.
+
+Columns:
+- `title`: Title of the plan
+- `days`: Plan Days count
+- `price`: Price of the plan
+- `caption`: A caption for the plan
+- `off`: The off (%)
+- `user_id`: Who added this
