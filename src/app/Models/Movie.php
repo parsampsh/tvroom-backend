@@ -35,4 +35,14 @@ class Movie extends Model
     {
         return $this->belongsToMany(Genre::class);
     }
+
+    /**
+     * Comments of the movie
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

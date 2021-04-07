@@ -86,4 +86,44 @@ class User extends Authenticatable
     {
         return $this->hasMany(Crew::class);
     }
+
+    /**
+     * Genres that added by this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function genres()
+    {
+        return $this->hasMany(Genre::class);
+    }
+
+    /**
+     * Scores that this user rated
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
+
+    /**
+     * Subscription plans that added by this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    /**
+     * Comments of this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

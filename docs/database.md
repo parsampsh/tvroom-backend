@@ -96,6 +96,7 @@ The comments are here.
 
 Columns:
 - `user_id`: Which [user](#user) commented this
+- `movie_id`: Which [movie](#movie) this comment is sent under
 - `body`: Content of the comment (max 1000)
 - `is_show`: Is enable for showing (boolean) (default 0)
 - `is_spoil`: Does spoil the movie (boolean) (default 0)

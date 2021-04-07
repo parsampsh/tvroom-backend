@@ -18,6 +18,9 @@ class CreateCommentsTable extends Migration
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->foreignId('movie_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->string('body', 1000);
             $table->boolean('is_show')
                 ->default(false);
