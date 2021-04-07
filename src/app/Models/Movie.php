@@ -10,6 +10,16 @@ class Movie extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'en_title',
+        'description',
+        'img',
+        'type',
+        'is_free',
+        'is_show',
+    ];
+
     public function crews()
     {
         return $this->belongsToMany(Crew::class)

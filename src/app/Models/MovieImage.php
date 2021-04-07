@@ -10,6 +10,12 @@ class MovieImage extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'src',
+        'is_video',
+    ];
+
     /**
      * Movie of this image
      *

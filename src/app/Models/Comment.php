@@ -10,6 +10,12 @@ class Comment extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'body',
+        'is_show',
+        'is_spoil',
+    ];
+
     /**
      * User of the comment
      *

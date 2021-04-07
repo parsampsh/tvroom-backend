@@ -10,6 +10,13 @@ class Genre extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'en_title',
+        'img',
+        'description',
+    ];
+
     /**
      * Movies in this genre
      *

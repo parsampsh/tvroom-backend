@@ -10,6 +10,14 @@ class Subscription extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'days',
+        'price',
+        'caption',
+        'off',
+    ];
+
     /**
      * User that added this
      *

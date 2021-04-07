@@ -10,6 +10,8 @@ class Score extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['score'];
+
     /**
      * Movie that score is for
      *

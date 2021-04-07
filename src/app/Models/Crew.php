@@ -10,6 +10,13 @@ class Crew extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'en_title',
+        'img',
+        'description',
+    ];
+
     /**
      * Movies of the crew
      *
