@@ -14,6 +14,7 @@ You can see the Database Models (Tables) structure and fields below.
 - [MovieImage](#movieimage)
 - [Comment](#comment)
 - [Subscription](#subscription)
+- [Score](#score)
 
 ## User
 This table keeps the users and admins.
@@ -96,7 +97,7 @@ Each [movie](#movie) has some videos and images as preview.
 The comments are here.
 
 Columns:
-- `user_id`: Which user commented this
+- `user_id`: Which [user](#user) commented this
 - `body`: Content of the comment (max 1000)
 - `is_show`: Is enable for showing
 - `is_spoil`: Does spoil the movie
@@ -111,4 +112,13 @@ Columns:
 - `price`: Price of the plan
 - `caption`: A caption for the plan
 - `off`: The off (%)
-- `user_id`: Who added this
+- `user_id`: Which [user](#user) added this
+
+## Score
+This table keeps score of the users to the movies.
+Means User A gives score B to movie C.
+
+Columns:
+- `user_id`: The ID of the [user](#user)
+- `movie_id`: The ID of the [movie](#movie)
+- `score`: The score that user gives to the movie
