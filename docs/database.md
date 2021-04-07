@@ -20,10 +20,10 @@ You can see the Database Models (Tables) structure and fields below.
 This table keeps the users and admins.
 
 Columns:
-- `username`: A unique username for the user
-- `email`: A unique email for user
+- `username`: A unique username for the user (max 255)
+- `email`: A unique email for user (max 255)
 - `password`: Hash of the user password
-- `is_manager`: A boolean that determines is this user **Super user** (manager)
+- `is_manager`: A boolean that determines is this user **Super user** (manager). default 0
 
 ## UserPermission
 Each user has one or more permissions in this application.
@@ -31,31 +31,29 @@ You can see list of valid permissions [here](permissions.md).
 
 Columns:
 - `user_id`: Foreign key for [User](#user).
-- `name`: Name of the permission ([See permissions list](permissions.md))
-
-(Note: there are some methods in [User](#user) model for working with permissions)
+- `name`: Name of the permission ([See permissions list](permissions.md))  (max 255)
 
 ## Movie
 The movies/serials.
 
 Columns:
-- `title`: Title of the movie
-- `en_title`: English Title of the movie (nullable)
+- `title`: Title of the movie (max 255)
+- `en_title`: English Title of the movie (nullable) (max 255)
 - `user_id`: Which [user](#user) added This
-- `description`: The description of the movie (nullable)
-- `img`: Image filename (nullable)
+- `description`: The description of the movie (nullable) (unlimited)
+- `img`: Image filename (nullable) (max 255)
 - `type`: `0` is movie and `1` is serial
-- `is_free`: Can be watched without subscription
-- `is_show`: Is enable for showing
+- `is_free`: Can be watched without subscription (boolean) (default 0)
+- `is_show`: Is enable for showing (boolean) (default 0)
 
 ## Crew
 The crews are directors, artists... of the [movies](#movie).
 
 Columns:
-- `title`: Name of the crew
-- `en_title`: English Name of the crew (nullable)
-- `img`: Image filename (nullable)
-- `description`: A description for crew (nullable)
+- `title`: Name of the crew (max 255)
+- `en_title`: English Name of the crew (nullable) (max 255)
+- `img`: Image filename (nullable) (max 255)
+- `description`: A description for crew (nullable) (unlimited)
 - `user_id`: Which [user](#user) added this
 
 ## MovieCrew
@@ -65,16 +63,16 @@ This table makes the N2N relation for them.
 Columns:
 - `movie_id`: Id of the [movie](#movie)
 - `crew_id`: Id of the [crew](#crew)
-- `role`: Role of the crew in the movie (for example `director`)
+- `role`: Role of the crew in the movie (for example `director`) (max 255)
 
 ## Genre
 The genres table.
 
 Columns:
-- `title`: Title of the genre
-- `en_title`: English Title of the genre (nullable)
-- `img`: Image filename (nullable)
-- `description`: Description (nullable)
+- `title`: Title of the genre (max 255)
+- `en_title`: English Title of the genre (nullable) (max 255)
+- `img`: Image filename (nullable) (max 255)
+- `description`: Description (nullable) (unlimited)
 - `user_id`: Which [user](#user) added this genre
 
 ## MovieGenre
@@ -88,10 +86,10 @@ Columns:
 ## MovieImage
 Each [movie](#movie) has some videos and images as preview.
 
-- `title`: A title for image/video
-- `src`: Filename
+- `title`: A title for image/video (max 255)
+- `src`: Filename (max 255)
 - `movie_id`: Id of the [movie](#movie)
-- `is_video`: Is video or not
+- `is_video`: Is video or not (boolean) (default 0)
 
 ## Comment
 The comments are here.
@@ -99,19 +97,19 @@ The comments are here.
 Columns:
 - `user_id`: Which [user](#user) commented this
 - `body`: Content of the comment (max 1000)
-- `is_show`: Is enable for showing
-- `is_spoil`: Does spoil the movie
+- `is_show`: Is enable for showing (boolean) (default 0)
+- `is_spoil`: Does spoil the movie (boolean) (default 0)
 - `comment_id`: Id of the comment that this comment is reply to (nullable)
 
 ## Subscription
 The subscription plans are stored dynamically here.
 
 Columns:
-- `title`: Title of the plan
-- `days`: Plan Days count
-- `price`: Price of the plan
-- `caption`: A caption for the plan
-- `off`: The off (%)
+- `title`: Title of the plan (max 255)
+- `days`: Plan Days count (int)
+- `price`: Price of the plan (int)
+- `caption`: A caption for the plan (max 255)
+- `off`: The off (%) (default 0)
 - `user_id`: Which [user](#user) added this
 
 ## Score
@@ -121,4 +119,4 @@ Means User A gives score B to movie C.
 Columns:
 - `user_id`: The ID of the [user](#user)
 - `movie_id`: The ID of the [movie](#movie)
-- `score`: The score that user gives to the movie
+- `score`: The score that user gives to the movie (int)

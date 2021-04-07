@@ -17,7 +17,8 @@ class CreateMovieImagesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('src');
-            $table->boolean('is_video');
+            $table->boolean('is_video')
+                ->default(false);
             $table->foreignId('movie_id')
                 ->constrained()
                 ->onDelete('cascade');
