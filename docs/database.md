@@ -121,3 +121,21 @@ Columns:
 - `user_id`: The ID of the [user](#user)
 - `movie_id`: The ID of the [movie](#movie)
 - `score`: The score that user gives to the movie (int)
+
+## Season
+Each [movie](#movie) (serial) has some seasons.
+
+- `movie_id`: Id of the [movie](#movie)
+- `title`: Title of the season (max 255)
+- `sort`: integer that determines sort of the seasons
+- `caption`: A caption for episode (nullable) (max 1000)
+- `is_single`: Is the movie single-season (default false) (boolean)
+
+## Episode
+Each [season](#season) has some episodes.
+
+- `movie_id`: Id of the [movie](#movie)
+- `season_id`: Id of the [season](#season)
+- `title`: Title of the episode (max 255)
+- `sort`: integer that determines sort of the episodes
+- `caption`: A caption for episode (nullable) (max 1000)
