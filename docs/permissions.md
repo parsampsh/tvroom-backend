@@ -2,4 +2,13 @@
 This application has a permission system to manage access level for users.
 You can see list of valid permissions here.
 
+To check a user has a permission or not:
+
+```php
+$user = User::find($x);
+$user->has_permission('name-of-permission'); // returns boolean
+```
+
+List of the permissions:
+
 - `get-users-list`: Accessing to list of all of users

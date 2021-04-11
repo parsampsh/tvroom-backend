@@ -15,6 +15,9 @@ You can see the Database Models (Tables) structure and fields below.
 - [Comment](#comment)
 - [Subscription](#subscription)
 - [Score](#score)
+- [Season](#season)
+- [Episode](#episode)
+- [Media](#media)
 
 ## User
 This table keeps the users and admins.
@@ -139,3 +142,16 @@ Each [season](#season) has some episodes.
 - `title`: Title of the episode (max 255)
 - `sort`: integer that determines sort of the episodes
 - `caption`: A caption for episode (nullable) (max 1000)
+
+## Media
+Each [movie](#movie)/[episode](#episode) has some medias.
+The medias actually are the files like video files in different qualities,
+subtitle files, etc.
+
+- `title`: A title for media (max 255)
+- `src`: filename (max 255)
+- `is_playable`: Is a playable video file (boolean) (default false)
+- `movie_id`: Id of the [movie](#movie) (nullable)
+- `episode_id`: Id of the [episode](#episode) (nullable)
+
+(Note: the both `movie_id` and `episode_id` are nullable, but one of them are required).

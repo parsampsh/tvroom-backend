@@ -20,4 +20,14 @@ class Episode extends Model
         'sort',
         'caption',
     ];
+
+    /**
+     * Medias of this episode
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medias()
+    {
+        return $this->hasMany(Media::class);
+    }
 }

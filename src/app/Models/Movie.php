@@ -60,4 +60,14 @@ class Movie extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * Medias of this movie
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medias()
+    {
+        return $this->hasMany(Media::class);
+    }
 }
