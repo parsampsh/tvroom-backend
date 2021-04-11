@@ -2,7 +2,7 @@
 **Tvroom** is a movie website. This project is the backend of the Tvroom.
 This project is open source and licensed under [MIT](LICENSE) and written by [parsa shahmaleki](https://github.com/parsampsh).
 
-To get started and run it locally, do the following steps (You need to have `php`, `composer` and `mysql` installed):
+To get started and run it locally, do the following steps (You need to have `php >= 8.0`, `composer` and `mysql` installed):
 
 ```bash
 $ cd path/to/tvroom-backend
@@ -38,4 +38,3 @@ The frontend project for this backend will be created soon...
 
 ## Documentation
 To read documentation of this project and also APIs, see [docs folder](docs).
-
