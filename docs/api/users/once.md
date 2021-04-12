@@ -1,12 +1,12 @@
 # Once user
-This API returns information of once user by id of it.
+This API returns information of once user by id or username of it.
 It is accessible for any user (non-authenticated, non-admin, etc).
 
-- Uri: `/api/v1/users/{id}`
+- Uri: `/api/v1/users/{id/username}`
 - Method: `GET`
 
 ### Parameters
-- `id`: Id of the user (in url)
+- `id/username`: Id OR username of the user (in url)
 
 ### Response
 Returns `404 not found` when user is not exists.

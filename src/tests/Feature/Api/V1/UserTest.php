@@ -108,5 +108,10 @@ class UserTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
 
         $this->assertEquals($user->username, $response->json('username'));
+
+        $response = $this->get(route('api.v1.users.once', [$user->username]));
+        $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertEquals($user->username, $response->json('username'));
     }
 }

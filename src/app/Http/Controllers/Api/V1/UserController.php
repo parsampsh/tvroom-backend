@@ -128,7 +128,7 @@ class UserController extends Controller
      * @param Request $request
      * @param User    $user
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $user)
     {
         //
     }
@@ -150,8 +150,29 @@ class UserController extends Controller
      * @param Request $request
      * @param User    $user
      */
-    public function once(Request $request, User $user)
+    public function once(Request $request, string $user)
     {
-        return $user;
+        $user_obj = User::find($user);
+        if ($user_obj === null) {
+            $user_obj = resolve(UserRepository::class)->find_user_by_username($user);
+        }
+
+        if ($user_obj === null) {
+            // log
+            Log::info('Someone tried to get info of a user that not exists', [
+                'requested_id' => $user,
+            ]);
+
+            return response()->json([
+                'error' => 'User not found',
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        // log
+        Log::info('Showing info of a user', [
+            'user_id' => $user_obj->id,
+        ]);
+
+        return $user_obj;
     }
 }
