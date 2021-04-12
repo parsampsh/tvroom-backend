@@ -7,8 +7,12 @@ To check a user has a permission or not:
 ```php
 $user = User::find($x);
 $user->has_permission('name-of-permission'); // returns boolean
+
+// or for adding a permission for a user:
+$user->permissions()->create(['name' => 'name-of-permission']);
 ```
 
 List of the permissions:
 
 - `get-users-list`: Accessing to list of all of users
+- `create-user`: Creating the new users

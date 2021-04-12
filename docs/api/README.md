@@ -26,5 +26,6 @@ But if there are some errors, `error` is in response.
     - [Info](auth/info.md)
     - [Logout](auth/logout.md)
 - [Users](users)
+    - [Create](users/create.md)
     - [List](users/list.md)
 - [Status check](status.md)

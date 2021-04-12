@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +18,77 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        // TODO : write me
+        // check user permission
+        if (! auth()->user()->has_permission('create-user')) {
+            // log
+            Log::notice('User that haven\'t permission tried to create a user', [
+                'user_id' => auth()->user()->id,
+            ]);
+
+            return permission_error_response();
+        }
+
+        // validate request data
+        $request->validate([
+            'username' => 'required|max:255',
+            'email' => 'required|max:255|email',
+            'password' => 'required|max:255',
+        ]);
+
+        // check username is unique
+        $current_user = resolve(UserRepository::class)
+            ->find_user_by_username($request->get('username'));
+        if ($current_user !== null) {
+            // log
+            Log::notice('Someone tried to create a user with a username that already exists', [
+                'user_id' => $current_user->id,
+                'username' => $request->get('username'),
+                'creator_user_id' => auth()->id(),
+            ]);
+
+            // username is reserved
+            return response()->json([
+                'error' => 'Username is already registered',
+            ], Response::HTTP_CONFLICT);
+        }
+
+        // check email is unique
+        $current_user = resolve(UserRepository::class)
+            ->find_user_by_email($request->get('email'));
+        if ($current_user !== null) {
+            // log
+            Log::notice('Someone tried to create a user with a email that already exists', [
+                'user_id' => $current_user->id,
+                'email' => $request->get('email'),
+                'creator_user_id' => auth()->id(),
+            ]);
+
+            // email is reserved
+            return response()->json([
+                'error' => 'Email is already registered',
+            ], Response::HTTP_CONFLICT);
+        }
+
+        // create the new user
+        $created_user = resolve(UserRepository::class)->create($request);
+
+        if (! $created_user) {
+            // exception error
+            return response()->json([
+                'error' => 'Failed to create the user',
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); // TODO : set a better status code
+        }
+
+        // log
+        Log::notice('A New user was created', [
+            'user_id' => $created_user->id,
+            'creator_user_id' => auth()->id(),
+        ]);
+
+        return response()->json([
+            'message' => 'User created successfully',
+            'user' => $created_user,
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -34,7 +105,7 @@ class UserController extends Controller
                 'user_id' => auth()->user()->id,
             ]);
 
-            abort(403);
+            return permission_error_response();
         }
 
         $users = User::query()
