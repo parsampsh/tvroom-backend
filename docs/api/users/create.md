@@ -20,4 +20,6 @@ Returns `201 Created` when user is created via this json data:
 }
 ```
 
-and returns `409 Conflict` error when the username or email is already exists.
+(Structure of `{user...}` is like [once](once.md) response)
+
+Returns `409 Conflict` error when the username or email is already exists.

@@ -152,6 +152,6 @@ class UserController extends Controller
      */
     public function once(Request $request, User $user)
     {
-        //
+        return $user;
     }
 }

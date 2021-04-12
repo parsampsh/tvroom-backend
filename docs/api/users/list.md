@@ -39,4 +39,6 @@ The response is something like this:
 }
 ```
 
+(Structure of each `{user...}` is like [once](once.md) response)
+
 Users list is in the `data` key and other keys are related to pagination.

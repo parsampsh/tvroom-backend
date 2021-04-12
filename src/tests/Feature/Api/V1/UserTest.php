@@ -93,4 +93,20 @@ class UserTest extends TestCase
 
         $this->assertEquals($created_user->username, $response->json('user')['username']);
     }
+
+    /**
+     * Information of once user is accessible
+     */
+    public function test_once_user_data_is_accessible()
+    {
+        $response = $this->get(route('api.v1.users.once', ['1']));
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
+
+        $user = User::factory()->create();
+
+        $response = $this->get(route('api.v1.users.once', [$user->id]));
+        $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertEquals($user->username, $response->json('username'));
+    }
 }
