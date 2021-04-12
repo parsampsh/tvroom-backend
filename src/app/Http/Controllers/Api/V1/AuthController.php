@@ -103,10 +103,16 @@ class AuthController extends Controller
             ], Response::HTTP_OK);
         }
 
-        $exists_user = User::where('email', $request->post('email'))->first();
+        $exists_user = resolve(UserRepository::class)
+            ->find_user_by_email($request->get('email'));
         if ($exists_user !== null) {
-            // log
-            Log::warning('Invalid password entered for user', ['user_id' => $exists_user->id]);
+            if ($exists_user->is_manager) {
+                // log
+                Log::critical('Invalid password entered for MANAGER user', ['user_id' => $exists_user->id]);
+            } else {
+                // log
+                Log::warning('Invalid password entered for user', ['user_id' => $exists_user->id]);
+            }
         } else {
             // log
             Log::notice('Invalid login', ['email' => $request->post('email')]);
