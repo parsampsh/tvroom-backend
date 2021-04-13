@@ -6,9 +6,9 @@ This is possible by only the admins that have permission [`create-user`](../../p
 - Method: `POST`
 
 ### Parameters
-- `username`
-- `email`
-- `password`
+- `username`: (max 255)
+- `email`: (max 255)
+- `password`: (max 255)
 
 ### Response
 Returns `201 Created` when user is created via this json data:
