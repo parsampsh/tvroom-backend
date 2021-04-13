@@ -1,7 +1,7 @@
 # Tvroom-Backend Database structure
 You can see the Database Models (Tables) structure and fields below.
 
-(Note: Soft deletes is enabled for all tables)
+(Note: Soft delete is enabled for all tables)
 
 ## Table of contents
 - [User](#user)
