@@ -5,9 +5,9 @@ This API logins a user with `email` and `password`.
 - Method: `POST`
 
 ### Parameters
-- `email`: The user email
-- `password`: The user password
-- `remember` (optional): Remeber the login or not
+- `email`: The user email (max 255)
+- `password`: The user password (max 255)
+- `remember` (optional): Remember the login or not (boolean)
 
 ### Response
 Returns `401 Unauthorized` when the credentials are invalid.
