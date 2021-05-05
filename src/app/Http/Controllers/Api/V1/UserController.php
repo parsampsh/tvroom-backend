@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -87,7 +89,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'User created successfully',
-            'user' => $created_user,
+            'user' => new UserResource($created_user),
         ], Response::HTTP_CREATED);
     }
 
@@ -118,6 +120,8 @@ class UserController extends Controller
         Log::info('User received list of the users', [
             'user_id' => auth()->user()->id,
         ]);
+
+        $users->data = (new UserCollection($users))->toArray($request);
 
         return response()->json($users, Response::HTTP_OK);
     }
@@ -202,6 +206,6 @@ class UserController extends Controller
             'user_id' => $user_obj->id,
         ]);
 
-        return $user_obj;
+        return new UserResource($user_obj);
     }
 }

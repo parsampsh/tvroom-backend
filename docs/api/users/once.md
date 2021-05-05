@@ -18,6 +18,8 @@ Returns `200 Ok` with this json structure when user exists:
   "id": 1,
   "username": "user-name",
   "email": "email@example.com",
-  "is_manager": 0
+  "is_manager": 0,
+  "created_at": "yyyy-mm-dd 00:00:00",
+  "updated_at": "yyyy-mm-dd 00:00:00",
 }
 ```

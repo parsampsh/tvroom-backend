@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -146,7 +147,7 @@ class AuthController extends Controller
             'user_id' => auth()->user()->email,
         ]);
 
-        return auth()->user();
+        return new UserResource(auth()->user());
     }
 
     /**
