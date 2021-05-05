@@ -114,4 +114,32 @@ class UserTest extends TestCase
 
         $this->assertEquals($user->username, $response->json('username'));
     }
+
+    public function test_user_can_be_deleted()
+    {
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
+
+        $response = $this->actingAs($user)->delete(route('api.v1.users.delete', [$user2->id]));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $user->permissions()->create([
+            'name' => 'delete-user',
+        ]);
+
+        $user2->is_manager = true;
+        $user2->save();
+
+        $response = $this->actingAs($user)->delete(route('api.v1.users.delete', [$user2->id]));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $user2->is_manager = false;
+        $user2->save();
+
+        $response = $this->actingAs($user)->delete(route('api.v1.users.delete', [$user2->id]));
+        $response->assertStatus(Response::HTTP_OK);
+
+        $tmp_user_obj = User::find($user2->id);
+        $this->assertEmpty($tmp_user_obj);
+    }
 }

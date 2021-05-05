@@ -16,3 +16,4 @@ List of the permissions:
 
 - `get-users-list`: Accessing to list of all of users
 - `create-user`: Creating the new users
+- `delete-user`: Deleting a user

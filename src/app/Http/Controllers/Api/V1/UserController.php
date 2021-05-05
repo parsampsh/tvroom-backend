@@ -141,7 +141,36 @@ class UserController extends Controller
      */
     public function delete(Request $request, User $user)
     {
-        //
+        if (! auth()->user()->has_permission('delete-user')) {
+            // log
+            Log::notice('User that haven\'t permission tried to delete a user', [
+                'user_id' => auth()->user()->id,
+                'delete_user_id' => $user->id,
+            ]);
+
+            return permission_error_response();
+        }
+
+        // check if user is manager, die
+        if ($user->is_manager) {
+            return response()->json([
+                'error' => 'You cannot delete this user',
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        // delete the user
+        // TODO : delete user non-relational dependencies
+        $user->delete();
+
+        // log
+        Log::warning('User has been deleted', [
+            'user_id' => $user->id,
+            'deleter_user_id' => auth()->id(),
+        ]);
+
+        return response()->json([
+            'message' => 'User has been deleted',
+        ], response::HTTP_OK);
     }
 
     /**
