@@ -3,6 +3,7 @@
 - Create CRUD for users
 - Add API for updating user's permissions list 
 - Create Delete account system
+- Fully use repository pattern
 - Create CRUD for genres
 - Create CRUD for crews
 - Create CRUD for subscriptions
