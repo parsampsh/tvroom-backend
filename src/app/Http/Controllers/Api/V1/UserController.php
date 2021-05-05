@@ -130,7 +130,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $user)
     {
-        //
+        // TODO : complete this action
     }
 
     /**
