@@ -1,5 +1,6 @@
 # TODO
 
+- Fully use resource pattern
 - Add API for updating user's permissions list 
 - Create Delete account system
 - Fully use repository pattern
