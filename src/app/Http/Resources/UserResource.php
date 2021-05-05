@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
+use App\Models\UserPermission;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -21,6 +23,7 @@ class UserResource extends JsonResource
             'is_manager' => $this->is_manager,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'permissions' => User::find($this->id)->permissions->pluck('name')->toArray(),
         ];
     }
 }

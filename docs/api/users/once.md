@@ -21,5 +21,11 @@ Returns `200 Ok` with this json structure when user exists:
   "is_manager": 0,
   "created_at": "yyyy-mm-dd 00:00:00",
   "updated_at": "yyyy-mm-dd 00:00:00",
+  "permissions": [
+    "foo",
+    "bar"
+  ]
 }
 ```
+
+(The `permissions` field is list of the user [permissions](../../permissions.md)).

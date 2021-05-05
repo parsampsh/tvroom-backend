@@ -113,6 +113,7 @@ class UserTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
 
         $this->assertEquals($user->username, $response->json('username'));
+        $this->assertEquals($user->permissions->pluck('name')->toArray(), $response->json('permissions'));
     }
 
     public function test_user_can_be_deleted()
