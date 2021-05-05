@@ -28,4 +28,6 @@ But if there are some errors, `error` is in response.
 - [Users](users)
     - [Create](users/create.md)
     - [List](users/list.md)
+    - [Once](users/once.md)
+    - [Delete](users/delete.md)
 - [Status check](status.md)
