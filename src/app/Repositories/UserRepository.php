@@ -30,6 +30,12 @@ class UserRepository
         return User::where('email', $email)->first();
     }
 
+    /**
+     * Creates a user from request data
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function create(Request $request)
     {
         return User::create([
@@ -39,6 +45,11 @@ class UserRepository
         ]);
     }
 
+    /**
+     * Returns the paginated list of users
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getPaginatedList()
     {
         return User::query()
@@ -46,11 +57,24 @@ class UserRepository
             ->paginate(config('app.extra.users.list_per_page'));
     }
 
+    /**
+     * Deletes a user
+     *
+     * @param User $user
+     * @return bool|null
+     * @throws \Exception
+     */
     public function delete(User $user)
     {
         return $user->delete();
     }
 
+    /**
+     * Finds a user by Id
+     *
+     * @param $id
+     * @return mixed
+     */
     public function findById($id)
     {
         return User::find($id);
