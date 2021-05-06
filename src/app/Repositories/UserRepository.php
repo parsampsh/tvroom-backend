@@ -38,4 +38,21 @@ class UserRepository
             'password' => Hash::make($request->get('username')),
         ]);
     }
+
+    public function getPaginatedList()
+    {
+        return User::query()
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('app.extra.users.list_per_page'));
+    }
+
+    public function delete(User $user)
+    {
+        return $user->delete();
+    }
+
+    public function findById($id)
+    {
+        return User::find($id);
+    }
 }

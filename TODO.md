@@ -1,6 +1,5 @@
 # TODO
 
-- Fully use repository pattern
 - Add API for updating user's permissions list
 - Create Delete account system
 - Create CRUD for genres

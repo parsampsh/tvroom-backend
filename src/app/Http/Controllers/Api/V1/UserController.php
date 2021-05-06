@@ -110,9 +110,7 @@ class UserController extends Controller
             return permission_error_response();
         }
 
-        $users = User::query()
-            ->orderBy('created_at', 'desc')
-            ->paginate(config('app.extra.users.list_per_page'));
+        $users = resolve(UserRepository::class)->getPaginatedList();
 
         // TODO : add additional options (filters) for the users
 
@@ -164,7 +162,7 @@ class UserController extends Controller
 
         // delete the user
         // TODO : delete user non-relational dependencies
-        $user->delete();
+        resolve(UserRepository::class)->delete($user);
 
         // log
         Log::warning('User has been deleted', [
@@ -185,7 +183,7 @@ class UserController extends Controller
      */
     public function once(Request $request, string $user)
     {
-        $user_obj = User::find($user);
+        $user_obj = resolve(UserRepository::class)->findById($user);
         if ($user_obj === null) {
             $user_obj = resolve(UserRepository::class)->find_user_by_username($user);
         }
