@@ -28,7 +28,7 @@ class AuthController extends Controller
 
         // check username is unique
         $current_user = resolve(UserRepository::class)
-            ->find_user_by_username($request->get('username'));
+            ->findByUsername($request->get('username'));
         if ($current_user !== null) {
             // log
             Log::notice('Someone tried to register a username that already exists', [
@@ -43,7 +43,7 @@ class AuthController extends Controller
 
         // check email is unique
         $current_user = resolve(UserRepository::class)
-            ->find_user_by_email($request->get('email'));
+            ->findByEmail($request->get('email'));
         if ($current_user !== null) {
             // log
             Log::notice('Someone tried to register a email that already exists', [
@@ -105,7 +105,7 @@ class AuthController extends Controller
         }
 
         $exists_user = resolve(UserRepository::class)
-            ->find_user_by_email($request->get('email'));
+            ->findByEmail($request->get('email'));
         if ($exists_user !== null) {
             if ($exists_user->is_manager) {
                 // log

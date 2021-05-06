@@ -14,7 +14,7 @@ class UserRepository
      * @param string $username
      * @return User|null
      */
-    public function find_user_by_username(string $username): User|null
+    public function findByUsername(string $username): User|null
     {
         return User::where('username', $username)->first();
     }
@@ -25,7 +25,7 @@ class UserRepository
      * @param string $email
      * @return User|null
      */
-    public function find_user_by_email(string $email): User|null
+    public function findByEmail(string $email): User|null
     {
         return User::where('email', $email)->first();
     }

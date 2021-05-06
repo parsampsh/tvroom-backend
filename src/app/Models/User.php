@@ -57,7 +57,7 @@ class User extends Authenticatable
      * @param string $permission
      * @return bool
      */
-    public function has_permission(string $permission): bool
+    public function hasPermission(string $permission): bool
     {
         if ($this->is_manager) {
             // The manager user has all the permissions

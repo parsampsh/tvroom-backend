@@ -21,7 +21,7 @@ class UserController extends Controller
     public function create(Request $request)
     {
         // check user permission
-        if (! auth()->user()->has_permission('create-user')) {
+        if (! auth()->user()->hasPermission('create-user')) {
             // log
             Log::notice('User that haven\'t permission tried to create a user', [
                 'user_id' => auth()->user()->id,
@@ -39,7 +39,7 @@ class UserController extends Controller
 
         // check username is unique
         $current_user = resolve(UserRepository::class)
-            ->find_user_by_username($request->get('username'));
+            ->findByUsername($request->get('username'));
         if ($current_user !== null) {
             // log
             Log::notice('Someone tried to create a user with a username that already exists', [
@@ -56,7 +56,7 @@ class UserController extends Controller
 
         // check email is unique
         $current_user = resolve(UserRepository::class)
-            ->find_user_by_email($request->get('email'));
+            ->findByEmail($request->get('email'));
         if ($current_user !== null) {
             // log
             Log::notice('Someone tried to create a user with a email that already exists', [
@@ -101,7 +101,7 @@ class UserController extends Controller
     public function list(Request $request)
     {
         // check user permission for getting list of users
-        if (! auth()->user()->has_permission('get-users-list')) {
+        if (! auth()->user()->hasPermission('get-users-list')) {
             // log
             Log::notice('User that haven\'t permission tried to get list of users', [
                 'user_id' => auth()->user()->id,
@@ -143,7 +143,7 @@ class UserController extends Controller
      */
     public function delete(Request $request, User $user)
     {
-        if (! auth()->user()->has_permission('delete-user')) {
+        if (! auth()->user()->hasPermission('delete-user')) {
             // log
             Log::notice('User that haven\'t permission tried to delete a user', [
                 'user_id' => auth()->user()->id,
@@ -185,7 +185,7 @@ class UserController extends Controller
     {
         $user_obj = resolve(UserRepository::class)->findById($user);
         if ($user_obj === null) {
-            $user_obj = resolve(UserRepository::class)->find_user_by_username($user);
+            $user_obj = resolve(UserRepository::class)->findByUsername($user);
         }
 
         if ($user_obj === null) {
