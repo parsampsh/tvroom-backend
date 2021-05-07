@@ -1,7 +1,7 @@
 # TODO
 
 - Verify user email
-- Crearte reset password system
+- Create reset password system
 - Create delete account system
 - Create CRUD for genres
 - Create CRUD for crews
