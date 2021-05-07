@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -205,5 +206,39 @@ class UserController extends Controller
         ]);
 
         return new UserResource($user_obj);
+    }
+
+    /**
+     * Updates list of user's permissions
+     * @param Request $request
+     */
+    public function updatePermissions(Request $request, User $user)
+    {
+        // only the manager can change the permissions for other users
+        if (! auth()->user()->is_manager) {
+            return permission_error_response();
+        }
+
+        $new_permissions = $request->post('permissions');
+
+        if (is_array($new_permissions)) {
+            DB::transaction(function () use ($user, $new_permissions) {
+                $user->permissions()->delete();
+
+                foreach ($new_permissions as $permission) {
+                    $user->permissions()->create([
+                        'name' => $permission,
+                    ]);
+                }
+            });
+        } else {
+            return response()->json([
+                'error' => 'The permissions should be an array',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        return response()->json([
+            'message' => 'Permissions has been updated successfully',
+        ]);
     }
 }

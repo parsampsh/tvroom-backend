@@ -143,4 +143,39 @@ class UserTest extends TestCase
         $tmp_user_obj = User::find($user2->id);
         $this->assertEmpty($tmp_user_obj);
     }
+
+    public function test_user_permissions_can_be_updated()
+    {
+        $user = User::factory()->create(['is_manager' => false]);
+        $user2 = User::factory()->create(['is_manager' => false]);
+
+        $response = $this->actingAs($user)->put(route('api.v1.users.update_permissions', $user2->id));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $user->is_manager = true;
+        $user->save();
+
+        $response = $this->actingAs($user)->put(route('api.v1.users.update_permissions', $user2->id));
+        $response->assertStatus(Response::HTTP_BAD_REQUEST);
+
+        $user2->permissions()->create([
+            'name' => 'other',
+        ]);
+
+        $this->assertFalse($user2->hasPermission('first'));
+        $this->assertFalse($user2->hasPermission('last'));
+        $this->assertTrue($user2->hasPermission('other'));
+
+        $response = $this->actingAs($user)->put(route('api.v1.users.update_permissions', $user2->id), [
+            'permissions' => [
+                'first',
+                'last',
+            ]
+        ]);
+        $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertTrue($user2->hasPermission('first'));
+        $this->assertTrue($user2->hasPermission('last'));
+        $this->assertFalse($user2->hasPermission('other'));
+    }
 }

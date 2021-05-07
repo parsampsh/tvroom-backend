@@ -30,4 +30,5 @@ But if there are some errors, `error` is in response.
     - [List](users/list.md)
     - [Once](users/once.md)
     - [Delete](users/delete.md)
+    - [Permissions](users/permissions.md)
 - [Status check](status.md)

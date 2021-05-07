@@ -33,6 +33,9 @@ Route::prefix('/v1')->group(function () {
 
             Route::delete('/delete/{user}', [UserController::class, 'delete'])
                 ->name('api.v1.users.delete');
+
+            Route::put('/update_permissions/{user}', [UserController::class, 'updatePermissions'])
+                ->name('api.v1.users.update_permissions');
         });
 
         Route::get('/{user}', [UserController::class, 'once'])
