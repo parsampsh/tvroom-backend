@@ -1,6 +1,8 @@
 # TODO
 
-- Create Delete account system
+- Verify user email
+- Crearte reset password system
+- Create delete account system
 - Create CRUD for genres
 - Create CRUD for crews
 - Create CRUD for subscriptions
