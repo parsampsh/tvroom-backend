@@ -31,4 +31,6 @@ But if there are some errors, `error` is in response.
     - [Once](users/once.md)
     - [Delete](users/delete.md)
     - [Permissions](users/permissions.md)
+- [Genres](genres)
+    - [List](genres/list.md)  
 - [Status check](status.md)

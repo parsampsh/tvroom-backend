@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\GenreController;
 
 Route::prefix('/v1')->group(function () {
     Route::prefix('/auth')->group(function () {
@@ -40,6 +41,11 @@ Route::prefix('/v1')->group(function () {
 
         Route::get('/{user}', [UserController::class, 'once'])
             ->name('api.v1.users.once');
+    });
+
+    Route::prefix('/genres')->group(function () {
+        Route::get('/', [GenreController::class, 'list'])
+            ->name('api.v1.genres.list');
     });
 
     Route::get('/status', function () {
