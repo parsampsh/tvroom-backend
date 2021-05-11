@@ -46,6 +46,11 @@ Route::prefix('/v1')->group(function () {
     Route::prefix('/genres')->group(function () {
         Route::get('/', [GenreController::class, 'list'])
             ->name('api.v1.genres.list');
+
+        Route::middleware('auth')->group(function () {
+            Route::post('/create', [GenreController::class, 'create'])
+                ->name('api.v1.genres.create');
+        });
     });
 
     Route::get('/status', function () {

@@ -33,4 +33,5 @@ But if there are some errors, `error` is in response.
     - [Permissions](users/permissions.md)
 - [Genres](genres)
     - [List](genres/list.md)  
+    - [Create](genres/create.md)  
 - [Status check](status.md)

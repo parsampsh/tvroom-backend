@@ -12,6 +12,7 @@ This is structure of the response:
 ```json
 [
   {
+    "id": 1,
     "title": "A title",
     "en_title": "An English title",
     "img": "name-of-image-file.ext",
@@ -22,4 +23,6 @@ This is structure of the response:
 ]
 ```
 
-(Note: the `{user...}` structure is even with [user once](../users/once.md)).
+Note: the `{user...}` structure is even with [user once](../users/once.md).
+Also, the `img` key is the name of image file that is accessible at
+`{api-host}/uploads/img/{filename}`.
