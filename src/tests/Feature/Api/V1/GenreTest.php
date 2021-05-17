@@ -65,4 +65,45 @@ class GenreTest extends TestCase
         $this->assertEquals($created_genre->id, $response->json('genre')['id']);
         $this->assertFileExists(img_upload_dir('/'.$created_genre->img));
     }
+
+    public function test_genre_can_be_deleted()
+    {
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $user3 = User::factory()->create();
+
+        $genre = Genre::factory()->create([
+            'user_id' => $user2->id,
+        ]);
+
+        $response = $this->actingAs($user1)->delete(route('api.v1.genres.delete', [$genre->id]));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $response = $this->actingAs($user2)->delete(route('api.v1.genres.delete', [$genre->id]));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $user1->permissions()->create(['name' => 'delete-any-genre']);
+
+        $response = $this->actingAs($user1)->delete(route('api.v1.genres.delete', [$genre->id]));
+        $response->assertStatus(Response::HTTP_OK);
+
+        $genre = Genre::find($genre->id);
+        $this->assertEmpty($genre);
+
+        $genre = Genre::factory()->create([
+            'user_id' => $user2->id,
+        ]);
+
+        $user2->permissions()->create(['name' => 'delete-genre']);
+        $user3->permissions()->create(['name' => 'delete-genre']);
+
+        $response = $this->actingAs($user3)->delete(route('api.v1.genres.delete', [$genre->id]));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $response = $this->actingAs($user2)->delete(route('api.v1.genres.delete', [$genre->id]));
+        $response->assertStatus(Response::HTTP_OK);
+
+        $genre = Genre::find($genre->id);
+        $this->assertEmpty($genre);
+    }
 }

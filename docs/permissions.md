@@ -18,3 +18,5 @@ List of the permissions:
 - `create-user`: Creating the new users
 - `delete-user`: Deleting a user
 - `create-genre`: Creating a new genre
+- `delete-genre`: Deleting its own genres
+- `delete-any-genre`: Deleting ANY genres

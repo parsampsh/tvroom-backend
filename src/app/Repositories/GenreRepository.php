@@ -18,6 +18,13 @@ class GenreRepository
         return Genre::all();
     }
 
+    /**
+     * Creates a new genre from request data
+     *
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Database\Eloquent\Model
+     */
     public function create(Request $request, User $user)
     {
         return $user->genres()->create([
@@ -26,5 +33,17 @@ class GenreRepository
             'description' => $request->get('description'),
             'img' => 'default.png',
         ]);
+    }
+
+    /**
+     * Deletes a genre
+     *
+     * @param Genre $genre
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete(Genre $genre)
+    {
+        return $genre->delete();
     }
 }

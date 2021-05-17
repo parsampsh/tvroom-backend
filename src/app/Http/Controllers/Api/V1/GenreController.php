@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GenreCollection;
 use App\Http\Resources\GenreResource;
+use App\Models\Genre;
 use App\Repositories\GenreRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -74,5 +75,31 @@ class GenreController extends Controller
             'message' => 'The new genre has been created successfully',
             'genre' => (new GenreResource($created_genre))->toArray($request),
         ], Response::HTTP_CREATED);
+    }
+
+    public function delete(Request $request, Genre $genre)
+    {
+        // check has user permission for deleting the genre
+        if (! auth()->user()->hasPermission('delete-any-genre')) {
+            if (
+                ! auth()->user()->hasPermission('delete-genre') ||
+                $genre->user_id !== auth()->id()
+            ) {
+                // log
+                Log::notice('Someone that has not permission tried to delete a genre', [
+                    'user_id' => auth()->id(),
+                    'genre_id' => $genre->id,
+                ]);
+
+                return permission_error_response();
+            }
+        }
+
+        // delete the genre
+        resolve(GenreRepository::class)->delete($genre);
+
+        return response()->json([
+            'message' => 'Genre has been deleted successfully',
+        ]);
     }
 }

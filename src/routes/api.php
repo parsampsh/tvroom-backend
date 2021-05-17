@@ -50,6 +50,9 @@ Route::prefix('/v1')->group(function () {
         Route::middleware('auth')->group(function () {
             Route::post('/create', [GenreController::class, 'create'])
                 ->name('api.v1.genres.create');
+
+            Route::delete('/delete/{genre}', [GenreController::class, 'delete'])
+                ->name('api.v1.genres.delete');
         });
     });
 
