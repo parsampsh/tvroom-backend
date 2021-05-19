@@ -53,6 +53,9 @@ Route::prefix('/v1')->group(function () {
 
             Route::delete('/delete/{genre}', [GenreController::class, 'delete'])
                 ->name('api.v1.genres.delete');
+
+            Route::put('/update/{genre}', [GenreController::class, 'update'])
+                ->name('api.v1.genres.update');
         });
     });
 

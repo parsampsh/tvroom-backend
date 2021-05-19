@@ -29,6 +29,9 @@ class GenreTest extends TestCase
         $this->assertEquals(Genre::first()->user->id, $response->json()[0]['user']['id']);
     }
 
+    /**
+     * Genre can be created
+     */
     public function test_genre_can_be_created()
     {
         $user = User::factory()->create();
@@ -66,6 +69,9 @@ class GenreTest extends TestCase
         $this->assertFileExists(img_upload_dir('/'.$created_genre->img));
     }
 
+    /**
+     * Genre can be deleted
+     */
     public function test_genre_can_be_deleted()
     {
         $user1 = User::factory()->create();
@@ -105,5 +111,56 @@ class GenreTest extends TestCase
 
         $genre = Genre::find($genre->id);
         $this->assertEmpty($genre);
+    }
+
+    /**
+     * Genre can be updated
+     */
+    public function test_genre_can_be_updated()
+    {
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $user3 = User::factory()->create();
+
+        $genre = Genre::factory()->create([
+            'user_id' => $user2->id,
+        ]);
+
+        $response = $this->actingAs($user1)->put(route('api.v1.genres.update', [$genre->id]));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $response = $this->actingAs($user2)->put(route('api.v1.genres.update', [$genre->id]));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $user1->permissions()->create(['name' => 'update-any-genre']);
+
+        $response = $this->actingAs($user1)->put(route('api.v1.genres.update', [$genre->id]));
+        $response->assertStatus(Response::HTTP_FOUND);
+
+        $response = $this->actingAs($user1)->put(route('api.v1.genres.update', [$genre->id]), [
+            'title' => 'updated title',
+            'en_title' => 'updated en title',
+            'description' => 'updated description',
+            'image' => UploadedFile::fake(),
+        ]);
+        $response->assertStatus(Response::HTTP_OK);
+
+        $genre->refresh();
+        $this->assertEquals('updated title', $genre->title);
+        $this->assertEquals('updated en title', $genre->en_title);
+        $this->assertEquals('updated description', $genre->description);
+
+        $genre = Genre::factory()->create([
+            'user_id' => $user2->id,
+        ]);
+
+        $user2->permissions()->create(['name' => 'update-genre']);
+        $user3->permissions()->create(['name' => 'update-genre']);
+
+        $response = $this->actingAs($user3)->put(route('api.v1.genres.update', [$genre->id]));
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $response = $this->actingAs($user2)->put(route('api.v1.genres.update', [$genre->id]));
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 }

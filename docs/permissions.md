@@ -20,3 +20,5 @@ List of the permissions:
 - `create-genre`: Creating a new genre
 - `delete-genre`: Deleting its own genres
 - `delete-any-genre`: Deleting ANY genres
+- `update-genre`: Updating its own genres
+- `update-any-genre`: Updating ANY genres

@@ -14,7 +14,7 @@ The user should have `create-genre` [permission](../../permissions.md) to create
 ### Response
 Returns `403 Forbidden` when user has not permission.
 
-Returns `201 Created` when the user is created:
+Returns `201 Created` when the genre is created:
 
 ```json
 {

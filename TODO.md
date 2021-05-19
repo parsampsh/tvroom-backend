@@ -3,7 +3,6 @@
 - Verify user email
 - Create reset password system
 - Create delete account system
-- Create CRUD for genres
 - Create CRUD for crews
 - Create CRUD for subscriptions
 - Create CRUD for comments

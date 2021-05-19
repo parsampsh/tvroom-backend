@@ -46,4 +46,20 @@ class GenreRepository
     {
         return $genre->delete();
     }
+
+    /**
+     * Updates a genre
+     *
+     * @param Genre $genre
+     * @param Request $request
+     * @return bool
+     */
+    public function update(Genre $genre, Request $request)
+    {
+        return $genre->update([
+            'title' => $request->get('title'),
+            'en_title' => $request->get('en_title'),
+            'description' => $request->get('description'),
+        ]);
+    }
 }

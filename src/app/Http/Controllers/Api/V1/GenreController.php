@@ -17,6 +17,7 @@ class GenreController extends Controller
      * Returns list of the genres
      *
      * @param Request $request
+     * @return GenreCollection
      */
     public function list(Request $request)
     {
@@ -32,6 +33,7 @@ class GenreController extends Controller
      * Creates a new genre
      *
      * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create(Request $request)
     {
@@ -77,6 +79,13 @@ class GenreController extends Controller
         ], Response::HTTP_CREATED);
     }
 
+    /**
+     * Deletes a genre
+     *
+     * @param Request $request
+     * @param Genre $genre
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Request $request, Genre $genre)
     {
         // check has user permission for deleting the genre
@@ -96,6 +105,7 @@ class GenreController extends Controller
         }
 
         // delete the genre
+        $genre->deleteImage();
         resolve(GenreRepository::class)->delete($genre);
 
         // log
@@ -106,6 +116,54 @@ class GenreController extends Controller
 
         return response()->json([
             'message' => 'Genre has been deleted successfully',
+        ]);
+    }
+
+    public function update(Request $request, Genre $genre)
+    {
+        // check has user permission for updating the genre
+        if (! auth()->user()->hasPermission('update-any-genre')) {
+            if (
+                ! auth()->user()->hasPermission('update-genre') ||
+                $genre->user_id !== auth()->id()
+            ) {
+                // log
+                Log::notice('Someone that has not permission tried to update a genre', [
+                    'user_id' => auth()->id(),
+                    'genre_id' => $genre->id,
+                ]);
+
+                return permission_error_response();
+            }
+        }
+
+        // validate form data
+        $request->validate([
+            'title' => 'required|max:255',
+            'en_title' => 'required|max:255',
+            'description' => 'required|max:255',
+            'img' => 'image',
+        ]);
+
+        // update
+        resolve(GenreRepository::class)->update($genre, $request);
+        $genre->refresh();
+
+        // upload the image
+        $img_file = $request->file('image');
+        if ($img_file) {
+            // TODO : make limitation on the file size
+            // delete the old image
+            $genre->deleteImage();
+
+            $img_name = 'genre-'.$genre->id;
+            $img_file->move(img_upload_dir(), $img_name);
+            $genre->img = $img_name;
+            $genre->save();
+        }
+
+        return response()->json([
+            'message' => 'Genre has been updated successfully',
         ]);
     }
 }

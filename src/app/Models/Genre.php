@@ -41,4 +41,16 @@ class Genre extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Deletes the image file
+     */
+    public function deleteImage()
+    {
+        $path = img_upload_dir('/') . $this->img;
+
+        if (is_file($path) && $this->img !== 'default.png') {
+            unlink($path);
+        }
+    }
 }
