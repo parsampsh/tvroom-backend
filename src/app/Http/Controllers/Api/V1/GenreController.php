@@ -98,6 +98,12 @@ class GenreController extends Controller
         // delete the genre
         resolve(GenreRepository::class)->delete($genre);
 
+        // log
+        Log::notice('A Genre has been deleted', [
+            'user_id' => auth()->id(),
+            'genre_id' => $genre->id,
+        ]);
+
         return response()->json([
             'message' => 'Genre has been deleted successfully',
         ]);
