@@ -12,4 +12,5 @@
 - Create CRUD for episodes
 - Add delete event for models that have relation to a file
 - Add rate limiter for routes
+- Dockerize project
 - Cleanup
