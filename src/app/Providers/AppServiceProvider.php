@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\CrewResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\GenreResource;
 use Illuminate\Support\ServiceProvider;
@@ -27,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
     {
         UserResource::withoutWrapping();
         GenreResource::withoutWrapping();
+        CrewResource::withoutWrapping();
     }
 }

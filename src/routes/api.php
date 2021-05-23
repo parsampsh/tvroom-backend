@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\GenreController;
+use App\Http\Controllers\Api\V1\CrewController;
 
 Route::prefix('/v1')->group(function () {
     Route::prefix('/auth')->group(function () {
@@ -57,6 +58,11 @@ Route::prefix('/v1')->group(function () {
             Route::put('/update/{genre}', [GenreController::class, 'update'])
                 ->name('api.v1.genres.update');
         });
+    });
+
+    Route::prefix('/crews')->group(function () {
+        Route::get('/', [CrewController::class, 'list'])
+            ->name('api.v1.crews.list');
     });
 
     Route::get('/status', function () {

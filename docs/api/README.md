@@ -36,4 +36,6 @@ But if there are some errors, `error` is in response.
     - [Create](genres/create.md)
     - [Delete](genres/delete.md)
     - [Update](genres/update.md)
+- [Crews](crews)
+    - [List](crews/list.md)
 - [Status check](status.md)
