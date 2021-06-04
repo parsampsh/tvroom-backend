@@ -52,7 +52,7 @@ class GenreController extends Controller
             'title' => 'required|max:255',
             'en_title' => 'required|max:255',
             'description' => 'required|max:255',
-            'img' => 'image',
+            'img' => 'image', // TODO : make limitation on the file size
         ]);
 
         // create the new genre
@@ -66,7 +66,6 @@ class GenreController extends Controller
         // upload the image
         $img_file = $request->file('image');
         if ($img_file) {
-            // TODO : make limitation on the file size
             $img_name = 'genre-'.$created_genre->id;
             $img_file->move(img_upload_dir(), $img_name);
             $created_genre->img = $img_name;
@@ -142,7 +141,7 @@ class GenreController extends Controller
             'title' => 'required|max:255',
             'en_title' => 'required|max:255',
             'description' => 'required|max:255',
-            'img' => 'image',
+            'img' => 'image', // TODO : make limitation on the file size
         ]);
 
         // update
@@ -152,7 +151,6 @@ class GenreController extends Controller
         // upload the image
         $img_file = $request->file('image');
         if ($img_file) {
-            // TODO : make limitation on the file size
             // delete the old image
             $genre->deleteImage();
 
