@@ -63,6 +63,17 @@ Route::prefix('/v1')->group(function () {
     Route::prefix('/crews')->group(function () {
         Route::get('/', [CrewController::class, 'list'])
             ->name('api.v1.crews.list');
+
+        Route::middleware('auth')->group(function () {
+            Route::post('/create', [CrewController::class, 'create'])
+                ->name('api.v1.crews.create');
+    
+            /*Route::delete('/delete/{genre}', [GenreController::class, 'delete'])
+                ->name('api.v1.genres.delete');
+
+            Route::put('/update/{genre}', [GenreController::class, 'update'])
+                ->name('api.v1.genres.update');*/
+        });
     });
 
     Route::get('/status', function () {

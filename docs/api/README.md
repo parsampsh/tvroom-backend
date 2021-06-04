@@ -38,4 +38,5 @@ But if there are some errors, `error` is in response.
     - [Update](genres/update.md)
 - [Crews](crews)
     - [List](crews/list.md)
+    - [Create](crews/create.md)
 - [Status check](status.md)
