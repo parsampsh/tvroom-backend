@@ -22,3 +22,4 @@ List of the permissions:
 - `delete-any-genre`: Deleting ANY genres
 - `update-genre`: Updating its own genres
 - `update-any-genre`: Updating ANY genres
+- `create-crew`: Creating a new crew
